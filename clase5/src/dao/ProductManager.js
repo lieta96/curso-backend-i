@@ -1,9 +1,12 @@
 import fs from "fs";
+import { __dirname } from "../utils.js";
+
 const productsPath = "./src/dao/data/products.json";
+
 class ProductManager {
   constructor() {
-    this.productsPath = "./src/dao/data/products.json";
-    this.folderPath = "./src/dao/data";
+    this.productsPath = __dirname + "/dao/data/products.json";
+    this.folderPath = __dirname + "/dao/data";
     this._init(); // Llamamos al inicializador
   }
   _init() {
@@ -43,7 +46,11 @@ class ProductManager {
       const products = await this.getProducts();
       const productIndex = products.findIndex((elm) => elm.id == id);
       if (productIndex !== -1) {
-        const nextProduct = { ...products[productIndex], ...updatedProduct, id: Number(id) };
+        const nextProduct = {
+          ...products[productIndex],
+          ...updatedProduct,
+          id: Number(id),
+        };
         products[productIndex] = nextProduct;
         await fs.promises.writeFile(
           this.productsPath,
@@ -59,7 +66,8 @@ class ProductManager {
     }
   }
   async createProduct(product) {
-    if (product.name && !isNaN(parseFloat(product.price))) {
+   
+    if (product.title && !isNaN(parseFloat(product.price))) {
       const products = await this.getProducts();
       const maxId =
         products.length > 0 ? Math.max(...products.map((elm) => elm.id)) : 0;
@@ -85,12 +93,8 @@ class ProductManager {
     const indexProduct = products.findIndex((obj) => obj.id == id);
     const deletedProduct = products[indexProduct];
     if (indexProduct > -1) {
-      products.splice(indexProduct, 1)
-      await fs.promises.writeFile(
-        productsPath,
-        JSON.stringify(products),
-        {},
-      );
+      products.splice(indexProduct, 1);
+      await fs.promises.writeFile(productsPath, JSON.stringify(products), {});
     }
     return deletedProduct;
   }
