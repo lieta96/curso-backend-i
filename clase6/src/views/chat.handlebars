@@ -1,0 +1,19 @@
+<main class="page page--chat">
+    <div class="chat-shell">
+        <header class="chat-header">
+            <h1>Hola <span class="chat-user">{{user}}</span>!</h1>
+        </header>
+        <div id="chat-box"></div>
+        <form class="chat-composer">
+            <input type="text" name="message" placeholder="Escribí un mensaje…">
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</main>
+{{!-- // Primero importamos el socket que usaremos del lado del cliente y luego nuestro script --}}
+<script>
+    // Esta variable será visible para chat.js porque se carga antes
+    const userLogged = "{{user}}";
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat.js"></script>

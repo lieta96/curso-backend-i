@@ -1,0 +1,11 @@
+<main class="page page--welcome">
+    <div class="welcome-card">
+        <h1>Bienvenido a mi primer chat</h1>
+        <p class="welcome-lead">Elegí un nombre para entrar a la sala.</p>
+        <form class="welcome-form" action="/chat" method="GET">
+            {{!-- este action más el método get nos redirige a esa ruta  --}}
+            <input type="text" name="user" placeholder="Ingresa tu nombre de usuario" required>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+</main>
